@@ -10,7 +10,7 @@ public class restController {
 	@Value("${spring.application.name}")
 	String appName;
 	
-	@GetMapping("/api/")
+	@GetMapping("/api/index")
 	public String indexPage(Model model) {
 		model.addAttribute("appName", appName);
 		return appName;

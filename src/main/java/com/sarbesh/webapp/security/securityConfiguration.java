@@ -19,19 +19,19 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter{
 			.and()
 			.authorizeRequests()
 //				.anyRequest().permitAll()
-				.antMatchers("/", "/register", "/h2-console/**").permitAll()
+				.antMatchers("/api/index", "/api/register", "/h2-console/**", "/browser/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
-//				.loginPage("/login")
+//				.loginPage("/api/login")
 				.permitAll()
 				.and()
 			.logout()
 				.permitAll()
 				.invalidateHttpSession(true)
 				.clearAuthentication(true)
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/logout-success")
+				.logoutRequestMatcher(new AntPathRequestMatcher("/api/logout"))
+				.logoutSuccessUrl("/api/logout-success")
 				.and().csrf().disable();
 	}
 	
