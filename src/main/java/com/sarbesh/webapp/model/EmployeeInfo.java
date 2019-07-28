@@ -28,6 +28,7 @@ public class EmployeeInfo {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "emp_info_id")
     private Long id;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -46,19 +47,19 @@ public class EmployeeInfo {
 	@NotNull
     @Email
     @Size(max = 100)
-    @Column(unique = true)
+    @Column(unique = true, name="email", nullable = false)
     private String email;
 	
 	@Enumerated(EnumType.STRING)
     @Column(length = 10)
     private Gender gender;
 	
-	@Temporal(TemporalType.DATE)
-    @Column(name = "dob")
-    private Date dateOfBirth;
+//	@Temporal(TemporalType.DATE)
+//    @Column(name = "dob")
+//    private Date dateOfBirth;
 	
 	private String designation;
-	private int Experience;
+	private float experience;
 	
 	public Long getId() {
 		return id;
@@ -74,12 +75,12 @@ public class EmployeeInfo {
 		this.employee = employee;
 	}
 	
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
+//	public Date getDateOfBirth() {
+//		return dateOfBirth;
+//	}
+//	public void setDateOfBirth(Date dateOfBirth) {
+//		this.dateOfBirth = dateOfBirth;
+//	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -111,11 +112,25 @@ public class EmployeeInfo {
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
-	public int getExperience() {
-		return Experience;
+	public float getExperience() {
+		return experience;
 	}
-	public void setExperience(int experience) {
-		Experience = experience;
+	public void setExperience(float experience) {
+		this.experience = experience;
+	}
+	public EmployeeInfo(Long id, Employee employee, @NotNull @Size(max = 65) String firstName,
+			@Size(max = 65) String lastName, @NotNull @Email @Size(max = 100) String email, Gender gender,
+			Date dateOfBirth, String designation, float experience) {
+		super();
+		this.id = id;
+		this.employee = employee;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.gender = gender;
+//		this.dateOfBirth = dateOfBirth;
+		this.designation = designation;
+		this.experience = experience;
 	}
 	
 	
