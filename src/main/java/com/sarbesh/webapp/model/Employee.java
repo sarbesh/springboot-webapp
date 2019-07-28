@@ -17,7 +17,7 @@ import javax.persistence.Transient;
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "emp_id")
+	@Column(name = "id")
 	private long id;
 	
 	@Column(name="password")

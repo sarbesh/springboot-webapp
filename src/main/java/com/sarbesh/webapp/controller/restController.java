@@ -36,6 +36,7 @@ public class restController {
 	
 	@PostMapping("/login")
 	public String loginPage(@RequestBody Employee empLogin) {
+		empRepo.save(empLogin);
 		return "login";
 	}
 	

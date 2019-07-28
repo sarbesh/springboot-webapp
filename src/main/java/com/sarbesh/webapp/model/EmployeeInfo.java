@@ -32,7 +32,7 @@ public class EmployeeInfo {
     private Long id;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "emp_id", nullable = false )
+	@JoinColumn(name = "emp_ID_id", nullable = false )
 	private Employee employee;
 	
 	@NotNull
