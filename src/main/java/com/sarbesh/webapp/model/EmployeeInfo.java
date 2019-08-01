@@ -15,8 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+//import javax.persistence.Temporal;
+//import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,9 +31,9 @@ public class EmployeeInfo {
 	@Column(name = "emp_info_id")
     private Long id;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "emp_ID_id", nullable = false )
-	private Employee employee;
+//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	@JoinColumn(name = "employee_id", nullable = false, referencedColumnName = "id" )
+//	private Employee employee;
 	
 	@NotNull
     @Size(max = 65)
@@ -68,12 +68,12 @@ public class EmployeeInfo {
 		this.id = id;
 	}
 	
-	public Employee getEmployee() {
-		return employee;
-	}
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
+//	public Employee getEmployee() {
+//		return employee;
+//	}
+//	public void setEmployee(Employee employee) {
+//		this.employee = employee;
+//	}
 	
 //	public Date getDateOfBirth() {
 //		return dateOfBirth;
@@ -118,12 +118,17 @@ public class EmployeeInfo {
 	public void setExperience(float experience) {
 		this.experience = experience;
 	}
-	public EmployeeInfo(Long id, Employee employee, @NotNull @Size(max = 65) String firstName,
+	
+	
+	public EmployeeInfo() {
+//		super();
+	}
+	public EmployeeInfo(Long id, @NotNull @Size(max = 65) String firstName,
 			@Size(max = 65) String lastName, @NotNull @Email @Size(max = 100) String email, Gender gender,
 			Date dateOfBirth, String designation, float experience) {
-		super();
+//		super();
 		this.id = id;
-		this.employee = employee;
+//		this.employee = employee;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;

@@ -2,6 +2,7 @@ package com.sarbesh.webapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,9 @@ import com.sarbesh.webapp.repository.EmployeeRepository;
 public class restController {
 	
 	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
 	private EmployeeRepository empRepo;
 	
 	@Autowired
@@ -36,13 +40,17 @@ public class restController {
 	
 	@PostMapping("/login")
 	public String loginPage(@RequestBody Employee empLogin) {
-		empRepo.save(empLogin);
-		return "login";
+		Long id = empLogin.getId();
+//		if (empLogin.getPassword().equals(empRepo.findById(id).get)
+//		empRepo.save(empLogin);
+		return "true";
 	}
 	
 	@PostMapping(path="/register")
 	public EmployeeInfo EmployeeRegistrar(@RequestBody EmployeeContext newEmployeeContext) {
-		 empRepo.save(newEmployeeContext.getEmployee());
+		Employee user = newEmployeeContext.getEmployee();
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		 empRepo.save(user);
 		return empInfoRepo.save(newEmployeeContext.getEmployeeInfo());
 	}
 }

@@ -12,7 +12,7 @@ public class WebController {
 	@Value("${spring.application.name}")
 	String appName;
 	
-	@GetMapping("/")
+	@GetMapping("/index")
 	public String indexPage(Model model) {
 		model.addAttribute("appName", appName);
 		return "index";

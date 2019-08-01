@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -26,7 +27,12 @@ public class Employee {
 	@Transient
 	private String passwordConfirm;
 	
-	@OneToOne(mappedBy = "emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@OneToOne(mappedBy = "emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@OneToOne(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="id")
+	private EmployeeInfo employeeInfo;
+	
 	public long getId() {
 		return id;
 	}
@@ -39,11 +45,6 @@ public class Employee {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Employee(long id, String password) {
-		super();
-		this.id = id;
-		this.password = password;
-	}
 	
 //	@Transient
 	public String getPasswordConfirm() {
@@ -53,6 +54,13 @@ public class Employee {
 		this.passwordConfirm = passwordConfirm;
 	}
 	
-	
+	public Employee() {
+//		super();
+	}
+	public Employee(long id, String password) {
+//		super();
+		this.id = id;
+		this.password = password;
+	}
 
 }
