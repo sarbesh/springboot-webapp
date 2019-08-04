@@ -6,74 +6,97 @@
     
     <title>Getting Started: Serving Web Content</title>
     <link rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" th:href="@{/css/main.css}"/> -->
+    <!-- <link rel="stylesheet" th:href="@{/css/login.css}"/> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+    <!-- <script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script> -->
      <!-- <script src="/js/ajax.js"></script> -->
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand" href="/api/index">${appName}</a>
 </nav>
 <div role="main" class="container">
 
     <div class="starter-template">
-      <!--   <h1>Spring Boot Web Thymeleaf Example</h1> -->
         <h2>
             <span th:text="'Hello, Welcome to ' + ${appName} + '!'"></span>
         </h2>
-        <!-- <table class="table table-bordered">
-        <thead>
-        	<tr>
-        		<th>ID</th>
-        		<th>Content</th>
-        	</tr>
-        </thead>
-        <tbody>
-        	<tr>
-            	<td class="greeting-id"> </td>
-            	<td class="greeting-content"> </td>
-            </tr>
-        </tbody>
-        </table> -->
-        <div class="login-page">
-  <div class="form">
-    <!-- <div class="row">
-      <div class="col-md-6"> -->
-    <form class="register-form" id="register-form">
-      <input type="text" placeholder="First Name"/>
-      <input type="text" placeholder="Last Name"/>
-      <input type="text" placeholder="Gender"/>
-      <input type="text" placeholder="Designation"/>
-      <input type="text" placeholder="Experience"/>
-      <input type="text" placeholder="email address"/>
-      <input type="password" placeholder="password"/>
-      <input type="password" placeholder="Confirm Password"/>
-      <button onclick="signUp()">create</button>
-      <p class="message">Already registered? <a href="#">Sign In</a></p>
+     </div>
+        
+  <div id="loginDiv" class="form form-group" >
+    <form class="login-form form-inline">
+    <label for="empId" class="mr-sm-2">Employee ID:</label>
+      <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Employee Id" id="empId"/>
+      <label for="loginPassword" class="mr-sm-2">Password:</label>
+      <input type="password" class="form-control mb-2 mr-sm-2" placeholder="password" id="loginPassword"/>
+      <button id="login" class="btn btn-primary mb-2">login</button>
     </form>
-  <!-- </div>
-  <div class="col-md-6"> -->
-    <form class="login-form">
-      <input type="text" placeholder="Employee Id"/>
-      <input type="password" placeholder="password"/>
-      <button>login</button>
-      <p class="message">Not registered? <a href="#">Create an account</a></p>
-    </form>
-  <!-- </div>
-  </div> -->
-  </div>
-</div>
+    <p class="message mr-sm-2">Not registered? <button class="btn" id="create-show">Create an account</button></p>
     </div>
+    
+        
+      <div class="form form-group" id="signupDiv" hidden="true">
+    <form class="register-form ">
+    <div class="form-row">
+    <div class="col">
+    <label for="firstName">First Name:</label>
+      <input class="form-control" type="text"  id = "firstName" placeholder="First Name"/>
+      </div>
+    <div class="col">
+      <label for="lastName">Last Name:</label>
+      <input class="form-control" type="text" id="lastName" placeholder="Last Name"/>
+      </div>
+      </div>
+      <div class="form-row">
+      <div class="col">
+      <label for="gender">Gender:</label>
+      <select class="form-control" id="gender">
+      <option value="FEMALE">Female</option>
+      <option value="MALE">Male</option>
+      </select>
+      </div>
+      <div class="col">
+      <label for="designation">Designation:</label>
+      <input class="form-control" type="text" id="designation" placeholder="Designation"/>
+      </div>
+      <div class="col">
+      <label for="experience">Experience:</label>
+      <input class="form-control" type="text" id="experience" placeholder="Experience"/>
+      </div>
+      </div>
+      <label for="email">Email address:</label>
+      <input class="form-control" type="email" id="email" placeholder="email address"/>
+      <div class="form-row">
+      <div class="col">
+      <label for="password">Password:</label>
+      <input class="form-control" type="password" id="password" placeholder="password"/>
+      </div>
+      <div class="col">
+      <label for="cPassword">Confirm Password:</label>
+      <input class="form-control" type="password" id="cPassword" placeholder="Confirm Password"/>
+      </div>
+      </div>
+      <br>
+      <button class="btn btn-primary" id="register" >create</button>
+      <p class="message">Already registered? <button id="login-show">Sign In</button></p>
+    </form>
+    </div>
+    
+    
+</div>    
 
 <!--     <ol>
         <li th:each="task : ${tasks}" th:text="${task}"></li>
     </ol> -->
 
-</div>
+
     <!-- <p th:text="'Hello, Welcome to ' + ${appName} + '!'" /> -->
 	<script type="text/javascript" th:src="@{webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 	<script type="text/javascript" th:src="@{webjars/jquery/3.0.0/jquery.min.js}"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
 	<script type="text/javascript" th:src="@{webjars/popper.js/1.14.3/popper.min.js}"></script>
-	<script type="text/javascript" th:src="@{/js/ajax.js}" ></script>
+	<script type="text/javascript" th:src="@{/js/myJs.js}"></script>
+	<!-- <script type="text/javascript" th:src="@{/js/ajax.js}" ></script> -->
 </body>
 </html>
