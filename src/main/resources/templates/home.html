@@ -1,27 +1,15 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>Getting Started: Serving Web Content</title>
-  <link rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
-  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+<script type="text/javascript" th:src="@{webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/myJs.js}"></script>
 </head>
 <body>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="/api/index">${appName}</a>
-  </nav>
-  
-  <div role="main" class="container">
-
-    <div class="starter-template">
-      <h2>
-        <span th:text="'Hello, Welcome to ' + ${appName} + '!'"></span>
-      </h2>
-    </div>
-
-    <div id="loginDiv" class="form form-group" >
+<div id="loginDiv" class="form form-group" >
       <form class="login-form form-inline">
         <label for="empId" class="mr-sm-2">Employee ID:</label>
         <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Employee Id" id="empId"/>
@@ -33,7 +21,7 @@
     </div>
     
 
-    <div class="form form-group" id="signupDiv">
+    <div class="form form-group" id="signupDiv" hidden="true">
       <form class="register-form ">
         <div class="form-row">
           <div class="col">
@@ -76,23 +64,10 @@
         </div>
         <br>
         <button class="btn btn-primary" id="register" >create</button>
-        <p class="message">Already registered? <button class="btn" id="login-show">Sign In</button></p>
+        <p class="message">Already registered? <button id="login-show">Sign In</button></p>
       </form>
     </div>
-    
-    
-  </div>    
-
-<!--     <ol>
-        <li th:each="task : ${tasks}" th:text="${task}"></li>
-      </ol> -->
 
 
-      <!-- <p th:text="'Hello, Welcome to ' + ${appName} + '!'" /> -->
-      <script type="text/javascript" th:src="@{webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
-      <script type="text/javascript" th:src="@{webjars/jquery/3.0.0/jquery.min.js}"></script>
-      <script type="text/javascript" th:src="@{webjars/popper.js/1.14.3/popper.min.js}"></script>
-      <script type="text/javascript" th:src="@{/js/myJs.js}"></script>
-      <!-- <script type="text/javascript" th:src="@{/js/ajax.js}" ></script> -->
-    </body>
-    </html>
+</body>
+</html>
