@@ -18,8 +18,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class securityConfiguration extends WebSecurityConfigurerAdapter{
-//	@Autowired
-//	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
 	private DataSource dataSource;
@@ -27,13 +27,13 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
-//	@Bean
-//	public AuthenticationProvider authProvide() {
-//		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-//		provider.setUserDetailsService(userDetailsService);
-//		provider.setPasswordEncoder(bCryptPasswordEncoder);
-//		return provider;
-//	}
+	@Bean
+	public AuthenticationProvider authProvide() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		provider.setUserDetailsService(userDetailsService);
+		provider.setPasswordEncoder(new BCryptPasswordEncoder());
+		return provider;
+	}
 	
 
 	@Override
@@ -43,13 +43,12 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter{
 			.headers().frameOptions().sameOrigin()
 			.and()
 			.authorizeRequests()
-				.anyRequest().permitAll()
-//				.antMatchers("/api/index", "/api/register", "/h2-console/**", "/browser/**").permitAll()
-//				.anyRequest().authenticated()
+//				.anyRequest().permitAll()
+				.antMatchers("/index", "/api/register", "/h2-console/**", "/browser/**").permitAll()
+				.anyRequest().authenticated()
 				.and()
 			.formLogin()
-//				.loginPage("/api/login")
-				.permitAll()
+				.loginPage("/api/login").permitAll()
 				.and()
 			.logout()
 				.permitAll()
@@ -62,7 +61,7 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception{
-		web.ignoring().antMatchers("/static/**", "/css/**", "/js/**", "/images/**");
+		web.ignoring().antMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/webjars/**");
 	}
 	
 }

@@ -7,5 +7,5 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 
 @RepositoryRestController
 public interface EmployeeRepository extends JpaRepository<Employee, Long>{
-
+	Employee findById(long id);
 }

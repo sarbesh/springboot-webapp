@@ -17,7 +17,7 @@
 //   		};
 //   var employeeInfo = {
 //   			firstName:input[0].value,
-//	   		lastName:input[1].value,
+//	   			lastName:input[1].value,
 //   			email:input[5].value,
 //   			gender:input[2].value,
 //   			designation:input[3].value,

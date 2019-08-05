@@ -38,9 +38,9 @@ public class restController {
 		return appName;
 	}
 	
-	@PostMapping("/login")
+	@PostMapping(path="/login")
 	public String loginPage(@RequestBody Employee empLogin) {
-		Long id = empLogin.getId();
+//		Long id = empLogin.getId();
 //		if (empLogin.getPassword().equals(empRepo.findById(id).get)
 //		empRepo.save(empLogin);
 		return "true";
