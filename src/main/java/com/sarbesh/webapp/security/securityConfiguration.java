@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,6 +36,12 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter{
 		return provider;
 	}
 	
+	@Override
+	@Bean
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+	
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
@@ -45,18 +52,18 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()
 //				.anyRequest().permitAll()
 				.antMatchers("/index", "/api/register", "/h2-console/**", "/browser/**").permitAll()
-				.anyRequest().authenticated()
-				.and()
-			.formLogin()
-				.loginPage("/api/login").permitAll()
-				.and()
-			.logout()
-				.permitAll()
-				.invalidateHttpSession(true)
-				.clearAuthentication(true)
-				.logoutRequestMatcher(new AntPathRequestMatcher("/api/logout"))
-				.logoutSuccessUrl("/api/logout-success")
-				.and().csrf().disable();
+				.anyRequest().authenticated();
+//				.and()
+//			.formLogin()
+////				.loginPage("/api/login").permitAll()
+//				.and()
+//			.logout()
+//				.permitAll()
+//				.invalidateHttpSession(true)
+//				.clearAuthentication(true)
+//				.logoutRequestMatcher(new AntPathRequestMatcher("/api/logout"))
+//				.logoutSuccessUrl("/api/logout-success")
+//				.and().csrf().disable();
 	}
 	
 	@Override

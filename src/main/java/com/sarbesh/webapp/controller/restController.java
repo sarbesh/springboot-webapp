@@ -1,10 +1,13 @@
 package com.sarbesh.webapp.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,11 +49,18 @@ public class restController {
 		return "true";
 	}
 	
-	@PostMapping(path="/register")
-	public EmployeeInfo EmployeeRegistrar(@RequestBody EmployeeContext newEmployeeContext) {
+	@PostMapping(path="/register", produces = "application/json")
+	public String EmployeeRegistrar(@RequestBody EmployeeContext newEmployeeContext) {
 		Employee user = newEmployeeContext.getEmployee();
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		 empRepo.save(user);
-		return empInfoRepo.save(newEmployeeContext.getEmployeeInfo());
+		 EmployeeInfo userInfo = newEmployeeContext.getEmployeeInfo();
+		 empInfoRepo.save(userInfo);
+		return user.toString();
+	}
+	
+	@GetMapping(path="/employee/{id}")
+	public Optional<EmployeeInfo> EmployeeDetails(@PathVariable Long id) {
+		return empInfoRepo.findById(id);
 	}
 }

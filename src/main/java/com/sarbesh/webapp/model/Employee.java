@@ -33,6 +33,12 @@ public class Employee {
 	@JoinColumn(name="id")
 	private EmployeeInfo employeeInfo;
 	
+	public EmployeeInfo getEmployeeInfo() {
+		return employeeInfo;
+	}
+	public void setEmployeeInfo(EmployeeInfo employeeInfo) {
+		this.employeeInfo = employeeInfo;
+	}
 	public long getId() {
 		return id;
 	}
@@ -53,7 +59,11 @@ public class Employee {
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + "]";
+	}
 	public Employee() {
 //		super();
 	}

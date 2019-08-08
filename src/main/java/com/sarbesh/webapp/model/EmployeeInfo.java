@@ -119,7 +119,11 @@ public class EmployeeInfo {
 		this.experience = experience;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "EmployeeInfo [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", gender=" + gender + ", designation=" + designation + ", experience=" + experience + "]";
+	}
 	public EmployeeInfo() {
 //		super();
 	}

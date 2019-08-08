@@ -1,4 +1,4 @@
-package com.sarbesh.webapp;
+package com.sarbesh.webapp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
