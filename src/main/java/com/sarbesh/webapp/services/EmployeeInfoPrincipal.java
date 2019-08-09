@@ -7,21 +7,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.sarbesh.webapp.model.Employee;
 import com.sarbesh.webapp.model.EmployeeInfo;
 
-public class EmployeePrincipal implements UserDetails {
-	
-	private Employee employee;
-
-	public EmployeePrincipal(Employee employee) {
-		super();
-		this.employee = employee;
-	}
+public class EmployeeInfoPrincipal implements UserDetails {
 	
 	private EmployeeInfo employeeInfo;
 
-	public EmployeePrincipal(EmployeeInfo employeeInfo) {
+	public EmployeeInfoPrincipal(EmployeeInfo employeeInfo) {
 		super();
 		this.employeeInfo = employeeInfo;
 	}
@@ -36,18 +28,13 @@ public class EmployeePrincipal implements UserDetails {
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return employee.getPassword();
+		return null;
 	}
 
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-	
-	public long getId() {
-		// TODO Auto-generated method stub
-		return employee.getId();
 	}
 	
 	public String getEmail() {

@@ -5,7 +5,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,10 +23,14 @@ import com.sarbesh.webapp.repository.EmployeeRepository;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class restController {
 	
+//	@Autowired
+//	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private EmployeeRepository empRepo;
@@ -41,18 +47,11 @@ public class restController {
 		return appName;
 	}
 	
-	@PostMapping(path="/login")
-	public String loginPage(@RequestBody Employee empLogin) {
-//		Long id = empLogin.getId();
-//		if (empLogin.getPassword().equals(empRepo.findById(id).get)
-//		empRepo.save(empLogin);
-		return "true";
-	}
 	
 	@PostMapping(path="/register", produces = "application/json")
 	public String EmployeeRegistrar(@RequestBody EmployeeContext newEmployeeContext) {
 		Employee user = newEmployeeContext.getEmployee();
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		 empRepo.save(user);
 		 EmployeeInfo userInfo = newEmployeeContext.getEmployeeInfo();
 		 empInfoRepo.save(userInfo);

@@ -1,13 +1,14 @@
 package com.sarbesh.webapp.model;
 
 public class LoginViewModel {
-    private long Id;
+	private long id;
     private String password;
+    
 	public long getId() {
-		return Id;
+		return id;
 	}
 	public void setId(long id) {
-		Id = id;
+		this.id = id;
 	}
 	public String getPassword() {
 		return password;
@@ -15,5 +16,5 @@ public class LoginViewModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+    
 }

@@ -28,7 +28,7 @@ public class EmployeeDetailsService implements UserDetailsService {
 	EmployeeInfo employee = empInfoRepo.findByEmail(arg0);
 	if(employee==null)
 		throw new UsernameNotFoundException("User 404");
-		return null;
+	return new EmployeePrincipal(employee);
 	}
 	
 	public UserDetails loadUserById(long arg0) throws UsernameNotFoundException {
@@ -36,14 +36,14 @@ public class EmployeeDetailsService implements UserDetailsService {
 	Employee employee = empRepo.findById(arg0);
 	if(employee==null)
 		throw new UsernameNotFoundException("Id 404");
-		return new EmployeePrincipal(employee);
+	return new EmployeePrincipal(employee);
 	}
 	
 //	public UserDetails loadUserByEmail(String arg0) throws UsernameNotFoundException {
 //		// TODO Auto-generated method stub
 //		EmployeeInfo employee = empInfoRepo.findByEmail(arg0);
 //		if(employee==null)
-//			throw new UsernameNotFoundException("User 404");
+//			throw new UsernameNotFoundException("Email 404");
 //		return null;
 //	}
 

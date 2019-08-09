@@ -43,7 +43,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     /* Trigger when we issue POST request to /login
-    We also need to pass in {"username":"dan", "password":"dan123"} in the request body
+    We also need to pass in {"id":"1", "password":"abc@123$"} in the request body
      */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -62,8 +62,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 credentials.getPassword(),
                 new ArrayList<>());
 
+        System.out.println(credentials.getId()+", "+credentials.getPassword());
+        System.out.println("token :"+authenticationToken);
         // Authenticate user
         Authentication auth = authenticationManager.authenticate(authenticationToken);
+        System.out.println("auth :"+auth);
 
         return auth;
     }
@@ -72,12 +75,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         // Grab principal
         EmployeePrincipal principal = (EmployeePrincipal) authResult.getPrincipal();
+        System.out.println(principal);
 
         // Create JWT Token
         String token = JWT.create()
-                .withSubject(principal.getUsername())
+                .withSubject(String.valueOf(principal.getId()))
                 .withExpiresAt(new Date(System.currentTimeMillis() + expTime))
                 .sign(HMAC512(signKey.getBytes()));
+        System.out.println("success token :"+token);
 
         // Add token in response
         response.addHeader(header_string, token_prefix +  token);
