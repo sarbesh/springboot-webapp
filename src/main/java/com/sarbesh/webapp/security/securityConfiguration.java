@@ -33,15 +33,15 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private DataSource dataSource;
 	
-//	@Autowired
+	@Autowired
 	private EmployeeDetailsService userDetailsService;
 	private EmployeeRepository employeeRepository;
 	
-	public securityConfiguration(EmployeeDetailsService userDetailsService, EmployeeRepository employeeRepository) {
-		super();
-		this.userDetailsService = userDetailsService;
-		this.employeeRepository = employeeRepository;
-	}
+//	public securityConfiguration(EmployeeDetailsService userDetailsService, EmployeeRepository employeeRepository) {
+//		super();
+//		this.userDetailsService = userDetailsService;
+//		this.employeeRepository = employeeRepository;
+//	}
 	
 	 @Override
 	    protected void configure(AuthenticationManagerBuilder auth) {
@@ -68,8 +68,8 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter{
 			.and()
 			.addFilter(new JwtAuthenticationFilter(authenticationManager()))
 			.authorizeRequests()
-				.antMatchers("/index", "/api/register", "/h2-console/**", "/browser/**", "/login").permitAll()
-//				.antMatchers(HttpMethod.POST, "/login").permitAll()
+				.antMatchers("/index", "/api/register", "/h2-console/**", "/browser/**", "/api/index").permitAll()
+				.antMatchers(HttpMethod.POST, "/login").permitAll()
 				.anyRequest().authenticated();
 	}
 	

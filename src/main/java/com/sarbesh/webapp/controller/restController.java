@@ -1,9 +1,11 @@
 package com.sarbesh.webapp.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sarbesh.webapp.model.Employee;
@@ -58,8 +62,20 @@ public class restController {
 		return user.toString();
 	}
 	
-	@GetMapping(path="/employee/{id}")
+	@GetMapping(path="/employee/{id}", produces = "application/json")
 	public Optional<EmployeeInfo> EmployeeDetails(@PathVariable Long id) {
+		System.out.println(empInfoRepo.findById(id));
 		return empInfoRepo.findById(id);
 	}
+	
+	@GetMapping("/employees")
+	public List<EmployeeInfo> EmployeesList() {
+		return empInfoRepo.findAll();
+	}
+	
+	@RequestMapping(value = "/username", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public String currentUserName(Authentication authentication) {
+        return authentication.getName();
+    }
 }

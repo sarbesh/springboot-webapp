@@ -24,12 +24,16 @@ public class EmployeePrincipal implements UserDetails {
 	public EmployeePrincipal(EmployeeInfo employeeInfo) {
 		super();
 		this.employeeInfo = employeeInfo;
+//		employee = employee.getId(employeeInfo.getId());
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		return Collections.singleton(new SimpleGrantedAuthority("USER"));
+//		List<SimpleGrantedAuthority> authList = new ArrayList<>();
+//        authList.add(new SimpleGrantedAuthority("ROLE_USER"));
+//        return authList;
 //		return null;
 	}
 
@@ -42,7 +46,7 @@ public class EmployeePrincipal implements UserDetails {
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return String.valueOf(employee.getId());
 	}
 	
 	public long getId() {

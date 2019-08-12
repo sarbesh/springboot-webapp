@@ -26,17 +26,17 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
     
-    @Value("${jwt.secret}")
-	String signKey;
-    
-    @Value("${jwt.expiretime}")
-    long expTime;
-    
-    @Value("${jwt.TOKEN_PREFIX}")
-    String token_prefix;
-    
-    @Value("${jwt.HEADER_STRING}")
-    String header_string;
+//    @Value("${jwt.secret}")
+//	String signKey;
+//    
+//    @Value("${jwt.expiretime}")
+//    long expTime;
+//    
+//    @Value("${jwt.TOKEN_PREFIX}")
+//    String token_prefix;
+//    
+//    @Value("${jwt.HEADER_STRING}")
+//    String header_string;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -58,15 +58,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // Create login token
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                credentials.getId(),
+                credentials.getUserName(),
                 credentials.getPassword(),
                 new ArrayList<>());
 
-        System.out.println(credentials.getId()+", "+credentials.getPassword());
-        System.out.println("token :"+authenticationToken);
+//        System.out.println(credentials.getUserName()+", "+credentials.getPassword());
+//        System.out.println("token :"+authenticationToken);
         // Authenticate user
         Authentication auth = authenticationManager.authenticate(authenticationToken);
-        System.out.println("auth :"+auth);
+//        System.out.println("auth :"+auth);
 
         return auth;
     }
@@ -75,16 +75,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         // Grab principal
         EmployeePrincipal principal = (EmployeePrincipal) authResult.getPrincipal();
-        System.out.println(principal);
+//        System.out.println("principal: "+principal);
+//        System.out.println("subject: "+String.valueOf(principal.getId())+", expTime: "+JwtProperties.EXPIRATION_TIME+", signKey: "+JwtProperties.SECRET.getBytes()+", header_string: "+JwtProperties.HEADER_STRING+", token_prefix: "+JwtProperties.TOKEN_PREFIX);
 
         // Create JWT Token
         String token = JWT.create()
-                .withSubject(String.valueOf(principal.getId()))
-                .withExpiresAt(new Date(System.currentTimeMillis() + expTime))
-                .sign(HMAC512(signKey.getBytes()));
-        System.out.println("success token :"+token);
+                .withSubject(principal.getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
+                .sign(HMAC512(JwtProperties.SECRET.getBytes()));
+//        System.out.println("Token: "+token);
 
         // Add token in response
-        response.addHeader(header_string, token_prefix +  token);
+        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX +  token);
     }
 }
