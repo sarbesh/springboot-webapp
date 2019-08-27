@@ -17,9 +17,9 @@ import com.sarbesh.webapp.repository.UserRepository;
 
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/")
 @CrossOrigin
-public class restController {
+public class AuthRestController {
 	
 	@Autowired
 	private UserRepository userRepo;

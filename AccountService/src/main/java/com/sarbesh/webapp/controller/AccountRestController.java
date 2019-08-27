@@ -23,9 +23,9 @@ import com.sarbesh.webapp.repository.AccountRepositry;
 
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/")
 @CrossOrigin
-public class restController {
+public class AccountRestController {
 	
 	@Autowired
 	private AccountRepositry accRepo;
@@ -70,7 +70,7 @@ public class restController {
 		map.put("id", response.getId().toString());
 		map.put("email", newProfile.getEmail());
 		map.put("password", newProfile.getPassword());
-		return restTemplate.postForObject("http://Auth-Service/auth/register", map, User.class);
+		return restTemplate.postForObject("http://gateway-server/api/auth/register", map, User.class);
 	}
 	
 }
