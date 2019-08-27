@@ -70,7 +70,7 @@ public class AccountRestController {
 		map.put("id", response.getId().toString());
 		map.put("email", newProfile.getEmail());
 		map.put("password", newProfile.getPassword());
-		return restTemplate.postForObject("http://gateway-server/api/auth/register", map, User.class);
+		return restTemplate.postForObject("http://gateway-server/auth/register", map, User.class);
 	}
 	
 }
