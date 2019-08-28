@@ -1,4 +1,4 @@
-package com.sarbesh.webapp.controller;
+package com.sarbesh.AuthService.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.sarbesh.webapp.model.User;
-import com.sarbesh.webapp.repository.UserRepository;
+import com.sarbesh.AuthService.model.User;
+import com.sarbesh.AuthService.repository.UserRepository;
 
 
 @RestController

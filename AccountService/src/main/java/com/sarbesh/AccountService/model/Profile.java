@@ -1,4 +1,4 @@
-package com.sarbesh.webapp.model;
+package com.sarbesh.AccountService.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,17 +10,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-//import lombok.AllArgsConstructor;
-//import lombok.Data;
-//import lombok.NoArgsConstructor;
-//import lombok.ToString;
 
-//@Data
-//@ToString
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@Entity
-//@Table(name="Profile")
+@Entity
+@Table(name="Profile")
 public class Profile {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,4 +1,4 @@
-package com.sarbesh.webapp.model;
+package com.sarbesh.AuthService.model;
 
 public class LoginViewModel {
 	private String userName;
