@@ -42,6 +42,11 @@ public class AccountRestController {
 	public Profile profile(@PathVariable("id") long id) {
 		return accRepo.findById(id).orElse(null);
 	}
+
+	@GetMapping("/profile/getName/{id}")
+	public String profileName(@PathVariable("id") long id) {
+		return accRepo.findById(id).orElse(null).getFirstName()+" "+accRepo.findById(id).orElse(null).getLastName();
+	}
 	
 	@GetMapping("/delete/{id}")
 	public String delProfile(@PathVariable("id") long id) {
@@ -70,7 +75,7 @@ public class AccountRestController {
 		map.put("id", response.getId().toString());
 		map.put("email", newProfile.getEmail());
 		map.put("password", newProfile.getPassword());
-		return restTemplate.postForObject("http://gateway-server/auth/register", map, User.class);
+		return restTemplate.postForObject("http://localhost:8090/register", map, User.class);
 	}
 	
 }
