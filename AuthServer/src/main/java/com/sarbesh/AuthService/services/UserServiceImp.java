@@ -5,10 +5,12 @@ import com.sarbesh.AuthService.model.User;
 import com.sarbesh.AuthService.repository.UserRepository;
 import com.sarbesh.AuthService.security.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static java.lang.System.*;
 
+@Service
 public class UserServiceImp implements UserService {
     @Autowired
     private UserRepository userRepo;
@@ -30,7 +32,7 @@ public class UserServiceImp implements UserService {
 
         } else {
             usr = userRepo.findByEmail(userName).orElse(null);
-            out.println(usr + " " + usr.toString());
+            out.println(usr.toString());
         }
         String result;
         if (usr == null) {

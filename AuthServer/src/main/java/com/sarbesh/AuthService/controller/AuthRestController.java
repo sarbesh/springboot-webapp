@@ -29,6 +29,7 @@ public class AuthRestController {
 	@Autowired
 	private UserRepository userRepo;
 
+	@Autowired
 	private UserService userService;
 	
 	@Autowired
