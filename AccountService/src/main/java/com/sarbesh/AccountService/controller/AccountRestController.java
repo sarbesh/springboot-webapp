@@ -45,6 +45,7 @@ public class AccountRestController {
 
 	@GetMapping("/profile/getName/{id}")
 	public String profileName(@PathVariable("id") long id) {
+		System.out.println("in profileName: id= "+id);
 		return accRepo.findById(id).orElse(null).getFirstName()+" "+accRepo.findById(id).orElse(null).getLastName();
 	}
 	
