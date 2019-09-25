@@ -14,12 +14,12 @@ import static java.lang.System.*;
 public class UserServiceImp implements UserService {
     @Autowired
     private UserRepository userRepo;
-    private LoginViewModel loginModel;
+    @Autowired
+    private Authentication auth;
 
     @Override
     @Transactional
     public String loginUser(LoginViewModel loginModel) {
-        this.loginModel = loginModel;
         out.println("In loginUser");
         String userName = loginModel.getUserName();
         String password = loginModel.getPassword();
@@ -32,13 +32,15 @@ public class UserServiceImp implements UserService {
 
         } else {
             usr = userRepo.findByEmail(userName).orElse(null);
-            out.println(usr.toString());
+            if (usr != null) {
+                out.println("User: "+usr.toString());
+            }
         }
         String result;
         if (usr == null) {
             throw new RuntimeException("Employee Not Found");
         } else if (password.equals(usr.getPassword())) {
-            String token = Authentication.generateToken(usr);
+            String token = auth.generateToken(usr);
             out.println("token: " + token);
             result = token;
         } else {
