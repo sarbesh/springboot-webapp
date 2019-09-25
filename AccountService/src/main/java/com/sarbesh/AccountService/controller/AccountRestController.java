@@ -45,8 +45,17 @@ public class AccountRestController {
 
 	@GetMapping("/profile/getName/{id}")
 	public String profileName(@PathVariable("id") long id) {
-		System.out.println("in profileName: id= "+id);
-		return accRepo.findById(id).orElse(null).getFirstName()+" "+accRepo.findById(id).orElse(null).getLastName();
+		Profile pf = accRepo.findById(id).orElse(null);
+		if (pf != null) {
+			String fName = pf.getFirstName();
+			String lName = pf.getLastName();
+			if (lName==null){
+				return fName;
+			} else {
+				return fName+" "+lName;
+			}
+		}
+		return null;
 	}
 	
 	@GetMapping("/delete/{id}")
@@ -72,7 +81,7 @@ public class AccountRestController {
 //			accRepo.deleteById(accRepo.findByEmail(newProfile.getEmail()).getId());;
 			response = accRepo.save(newProfile);
 		}
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("id", response.getId().toString());
 		map.put("email", newProfile.getEmail());
 		map.put("password", newProfile.getPassword());

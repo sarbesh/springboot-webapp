@@ -29,7 +29,6 @@ public class UserServiceImp implements UserService {
             long id = Integer.parseInt(userName);
             out.println(id);
             usr = userRepo.findById(id).orElse(null);
-
         } else {
             usr = userRepo.findByEmail(userName).orElse(null);
             if (usr != null) {
@@ -38,13 +37,15 @@ public class UserServiceImp implements UserService {
         }
         String result;
         if (usr == null) {
-            throw new RuntimeException("Employee Not Found");
+            return "Employee Not Found";
+//            throw new RuntimeException("Employee Not Found");
         } else if (password.equals(usr.getPassword())) {
             String token = auth.generateToken(usr);
             out.println("token: " + token);
             result = token;
         } else {
-            throw new RuntimeException("Incorrect User or Password");
+            return "Incorrect User or Password";
+//            throw new RuntimeException("Incorrect User or Password");
         }
         return result;
     }
