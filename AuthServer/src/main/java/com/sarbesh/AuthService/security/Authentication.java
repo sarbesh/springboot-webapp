@@ -1,29 +1,31 @@
 package com.sarbesh.AuthService.security;
 
-import com.netflix.ribbon.proxy.annotation.Hystrix;
 import com.sarbesh.AuthService.model.User;
-import com.sarbesh.AuthService.model.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.netflix.hystrix.EnableHystrix;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 
-import static java.lang.System.*;
+import static java.lang.System.out;
 
+@Component
 public class Authentication {
-    private static HashMap<Long,String> map= new HashMap<Long, String>();
+    private static HashMap<Long,String> map= new HashMap<>();
 
     @Autowired
     private RestTemplate restTemplate;
 
-    public static String generateToken(User usr){
+    private Authentication(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    public String generateToken(User usr){
         out.println("In Token");
         long id = usr.getId();
-        String name = new Authentication().getFullName(id);
+        String name = new Authentication(restTemplate).getFullName(id);
         String token = id + "." + name + "." + usr.getEmail();
         out.println(token);
         if (map.isEmpty()||map.get(id).equals(token)) {
