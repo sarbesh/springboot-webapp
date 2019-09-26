@@ -2,6 +2,9 @@ package com.sarbesh.AuthService.controller;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.netflix.discovery.converters.Auto;
+import com.sarbesh.AuthService.model.StringMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +33,9 @@ public class AuthRestController {
 	private UserRepository userRepo;
 
 	@Autowired
+	private StringMessage stringMessage;
+
+	@Autowired
 	private UserService userService;
 	
 	@Autowired
@@ -52,12 +58,18 @@ public class AuthRestController {
 		return "Success";
 	}
 
-	@PostMapping("/login")
-	public String loginUser(@RequestBody LoginViewModel loginModel){
-		out.println(loginModel.getUserName()+" "+loginModel.getPassword());
+	@PostMapping(value = "/login", produces = "application/json")
+	public StringMessage loginUser(@RequestBody LoginViewModel loginModel){
 		String s = userService.loginUser(loginModel);
-		out.println(s);
-		return s;
+		stringMessage.setMessage(s);
+		return stringMessage;
+	}
+
+	@GetMapping("/logout")
+	public StringMessage logout(){
+
+		stringMessage.setMessage("Successfully logged out");
+		return stringMessage;
 	}
 	
 	@GetMapping("/user/{id}")

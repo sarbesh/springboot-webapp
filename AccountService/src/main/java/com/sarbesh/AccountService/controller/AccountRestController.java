@@ -85,7 +85,7 @@ public class AccountRestController {
 		map.put("id", response.getId().toString());
 		map.put("email", newProfile.getEmail());
 		map.put("password", newProfile.getPassword());
-		return restTemplate.postForObject("http://localhost:8090/register", map, User.class);
+		return restTemplate.postForObject("http://Auth-Service/register", map, User.class);
 	}
 	
 }
