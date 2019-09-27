@@ -1,28 +1,16 @@
 package com.sarbesh.AuthService.controller;
 
-import java.util.List;
-
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.netflix.discovery.converters.Auto;
+import com.sarbesh.AuthService.model.LoginViewModel;
 import com.sarbesh.AuthService.model.StringMessage;
+import com.sarbesh.AuthService.model.User;
+import com.sarbesh.AuthService.repository.UserRepository;
+import com.sarbesh.AuthService.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import com.sarbesh.AuthService.model.User;
-import com.sarbesh.AuthService.model.LoginViewModel;
-
-import com.sarbesh.AuthService.repository.UserRepository;
-
-import com.sarbesh.AuthService.services.UserService;
-
-import static java.lang.System.*;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -66,9 +54,19 @@ public class AuthRestController {
 	}
 
 	@GetMapping("/logout")
-	public StringMessage logout(){
+	public StringMessage logout(HttpServletRequest req) throws RuntimeException {
+		try {
+			String authToken = req.getHeader("Token");
+			if (authToken!=null){
+			userService.logoutUser(authToken);
+			stringMessage.setMessage("Successfully logged out");
+			} else {
+				throw  new RuntimeException("No token found in header");
+			}
+		} catch (NullPointerException e) {
+			System.out.println("Token : Null Exception");
+		}
 
-		stringMessage.setMessage("Successfully logged out");
 		return stringMessage;
 	}
 	

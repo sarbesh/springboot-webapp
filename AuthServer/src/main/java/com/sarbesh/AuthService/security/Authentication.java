@@ -9,8 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 
-import static java.lang.System.out;
-
 @Component
 public class Authentication {
     private static HashMap<Long,String> map= new HashMap<>();
@@ -22,7 +20,7 @@ public class Authentication {
         this.restTemplate = restTemplate;
     }
 
-    public String generateToken(User usr){
+    public String generateToken(User usr) throws RuntimeException {
         long id = usr.getId();
         String name = new Authentication(restTemplate).getFullName(id);
         String token = id + "." + name + "." + usr.getEmail();
@@ -32,6 +30,18 @@ public class Authentication {
             throw new RuntimeException("User has an session active");
         }
         return token;
+    }
+    public boolean removeToken(String token) throws RuntimeException {
+        try {
+        if (map.containsValue(token)) {
+            long id = Long.parseLong(String.valueOf(token.charAt(1)));
+            map.remove(id);
+            return true;
+        } else {
+            throw new RuntimeException("Token not remove");
+        } } catch (NullPointerException e){
+            throw new RuntimeException(e);
+        }
     }
 
     private String getFullName(Long id){

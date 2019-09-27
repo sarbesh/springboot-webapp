@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static java.lang.System.*;
-
 @Service
 public class UserServiceImp implements UserService {
     @Autowired
@@ -30,21 +28,15 @@ public class UserServiceImp implements UserService {
             usr = userRepo.findByEmail(userName).orElse(null);
         }
         String result;
-        if (usr == null) {
-//            return "Employee Not Found";
-            throw new RuntimeException("Employee Not Found");
-        } else if (password.equals(usr.getPassword())) {
-            String token = auth.generateToken(usr);
-            result = token;
-        } else {
-            throw new RuntimeException("Incorrect User or Password");
-        }
+        if (usr == null) throw new RuntimeException("Employee Not Found");
+        else if (password.equals(usr.getPassword())) result = auth.generateToken(usr);
+        else throw new RuntimeException("Incorrect User or Password");
         return result;
     }
 
     @Override
-    public void logoutUser(String token) {
-
+    public boolean logoutUser(String token) {
+        return auth.removeToken(token);
     }
 
     @Override
