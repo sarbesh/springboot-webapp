@@ -34,6 +34,7 @@ public class Authentication {
     public boolean removeToken(String token) throws RuntimeException {
         try {
         if (map.containsValue(token)) {
+            System.out.println(token.charAt(1));
             long id = Long.parseLong(String.valueOf(token.charAt(1)));
             map.remove(id);
             return true;
